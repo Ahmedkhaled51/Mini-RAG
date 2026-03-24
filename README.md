@@ -7,11 +7,11 @@ A lightweight Retrieval-Augmented Generation (RAG) application designed to allow
 - #### How to install python using miniconda
 1) download miniconda from [here](https://www.anaconda.com/docs/getting-started/miniconda/install/overview)
 2) create a virtual environment using the following command:
-    ```bash
+    ```powershell
     $ conda create -n rag python=3.8
     ```
 3) activate the virtual environment using the following command:
-    ```bash
+    ```powershell
     $ conda activate mini-rag
     ```  
 
@@ -20,57 +20,15 @@ A lightweight Retrieval-Augmented Generation (RAG) application designed to allow
 - Python 3.8+ 
 - Minimum 4GB RAM (8GB+ recommended if running local models)
 
-### Prerequisites
-Before running this project, you will need:
-- Optional: An API key for your chosen LLM (e.g., OpenAI API Key) if you are not using a local, open-source model.
-- (If using local models): [Ollama](https://ollama.com/) or similar local inference engine installed.
-- Git for version control.
-
-## ✨ Features
-
-- **Document Ingestion**: Supports uploading and parsing various document formats (PDF, TXT, CSV, Markdown).
-- **Text Chunking**: Efficiently splits documents into logical chunks for better embedding and retrieval.
-- **Vector Database**: Utilizes a fast and scalable vector database (e.g., ChromaDB or FAISS) for storing document embeddings locally.
-- **Semantic Search**: Accurately retrieves contextually relevant information from your documents based on user queries.
-- **LLM Integration**: Seamlessly generates natural and precise answers citing your specific data.
-
-## 🛠️ Tech Stack
-
-- **Language**: Python
-- **LLM Framework**: LangChain or LlamaIndex
-- **Embeddings**: HuggingFace (local) or OpenAI
-- **Vector Store**: ChromaDB
-- **User Interface**: Streamlit (or FastAPI for a backend-only approach)
-
 ## 🚀 Installation & Setup
-
-1. **Clone the repository:**
+1. **Install the required packages:**
    ```bash
-   git clone https://github.com/your-username/Mini-RAG.git
-   cd Mini-RAG
-   ```
-
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   
-   # On Windows:
-   venv\Scripts\activate
-   
-   # On Linux/macOS:
-   source venv/bin/activate
-   ```
-
-3. **Install the dependencies:**
-   ```bash
-   # (Note: make sure to create a requirements.txt file)
    pip install -r requirements.txt
    ```
-
-4. **Environment Variables:**
-   Create a `.env` file in the root directory and add any necessary API keys:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
+2. **Environment Variables:**
+   Create a `.env` file in the root directory and add any necessary API keys like `OPENAI_API_KEY`
+   ```bash
+   cp .env.example .env
    ```
 
 ## 🎯 Usage
