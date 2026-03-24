@@ -31,38 +31,7 @@ A lightweight Retrieval-Augmented Generation (RAG) application designed to allow
    cp .env.example .env
    ```
 
-## 🎯 Usage
-
-To start the Mini-RAG system, run the main application:
-
-```bash
-# Example if using Streamlit:
-streamlit run app.py
-
-# Example if running a terminal application:
-python main.py
+## Run the FastAPI server
+```powershell
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
-
-1. Add your documents via the UI or place them into a designated `data/` folder.
-2. The system will process, chunk, and index the documents into the vector database.
-3. You can now use the chat interface to ask questions about your uploaded documents!
-
-## 📁 Project Structure
-
-```text
-Mini-RAG/
-├── data/               # Folder for storing raw documents to be indexed
-├── vectorstore/        # Local persistent directory for ChromaDB/FAISS
-├── src/                # Main source code
-│   ├── ingestion.py    # Logic for reading and chunking documents
-│   ├── embedding.py    # Logic for generating vectors
-│   ├── retrieval.py    # Logic for searching the vector database
-│   └── generation.py   # Logic for LLM system prompt and response
-├── app.py              # Main entry point for the application (e.g., Streamlit UI)
-├── requirements.txt    # Project Python dependencies
-├── .env.example        # Example environment variables required
-└── README.md           # Project documentation
-```
-
-## 🤝 Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or new features you'd like to add.
