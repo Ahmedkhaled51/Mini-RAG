@@ -1,4 +1,4 @@
-from fastapi import APIRouter, FastAPI, Depends, UploadFile, status
+from fastapi import APIRouter, Depends, UploadFile, status
 from fastapi.responses import JSONResponse
 import os
 from helpers.config import get_settings, Settings
