@@ -8,7 +8,7 @@ A lightweight Retrieval-Augmented Generation (RAG) application designed to allow
 1) download miniconda from [here](https://www.anaconda.com/docs/getting-started/miniconda/install/overview)
 2) create a virtual environment using the following command:
     ```powershell
-    $ conda create -n rag python=3.8
+    $ conda create -n mini-rag python=3.8
     ```
 3) activate the virtual environment using the following command:
     ```powershell
@@ -35,3 +35,4 @@ A lightweight Retrieval-Augmented Generation (RAG) application designed to allow
 ```powershell
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
