@@ -7,7 +7,7 @@ import os
 class ProjectController(BaseController):
     def __init__(self):
         super().__init__()
-        self.size_scale = 1048576  # to convert From MB to bytes
+       
 
     def get_project_path(self, project_id: str):
         project_dir = os.path.join(self.files_dir, project_id)
