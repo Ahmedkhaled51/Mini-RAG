@@ -8,6 +8,26 @@ class ProjectModel(BaseDataModel):
         super().__init__(db_client=db_client)
         self.collection = self.db_client[DataBaseEnum.COLLECTION_PROJECT_NAME.value]
 
+    @classmethod
+    async def creat_instance(cls, db_client: object):  # |Here we solve the singleton problem 
+        instance = cls(db_client)                      # |-> by create funcation async to call 2 funcations with big problem 
+        await instance.init_collection()               # |-> the first problem is in "__init__" funcation that can't be async by any thing 
+        return instance                                # |-> the second problem is the index must create at the first to don't return to solve it in mongo DataBase
+    
+    async def init_collection(self):
+        all_collections = await self.db_client.list_collection_names()
+        if DataBaseEnum.COLLECTION_PROJECT_NAME.value not in all_collections:
+            self.collection = self.db_client[DataBaseEnum.COLLECTION_PROJECT_NAME.value]
+            indexes = Project.get_indexes()
+            for index in indexes:
+                await self.collection.create_index(
+                    index["key"], 
+                    name=index["name"],
+                    unique=index["unique"]
+                )
+
+        
+
     async def create_project(self, project: Project):
 
         result = await self.collection.insert_one(project.dict(by_alias=True, exclude_none=True))
