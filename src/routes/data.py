@@ -1,14 +1,16 @@
 from fastapi import APIRouter, Depends, UploadFile, status, Request
 from fastapi.responses import JSONResponse
 import os
+import aiofiles
+import logging
 from helpers.config import get_settings, Settings
 from controllers import DataController, ProjectController, ProcessController
-import aiofiles
 from models import ResponseSignal
 from models.ProjectModel import ProjectModel
 from models.ChunkModel import ChunkModel
-from models.db_schemes import DataChunk
-import logging
+from models.AssetModel import AssetModel
+from models.db_schemes import DataChunk, Asset
+from models.enums.AssetTypeEnum import AssetTypeEnum
 from routes.schemes.data import ProcessRequest
 
 
@@ -65,11 +67,19 @@ async def upload_data(
                 "data": {"is_valid": False},
             },
         )
-
+    # record the asset in db
+    asset_model = await AssetModel.creat_instance(db_client=request.app.db_client)
+    asse_resource = Asset(
+        asset_project_id= project.id,
+        asset_type=AssetTypeEnum.FILE.value,
+        asset_name=file_id,
+        asset_size=os.path.getsize(file_path),
+        )
+    asset_record = await asset_model.create_asset(asset=asse_resource)
     return JSONResponse(
         content={
             "message": ResponseSignal.FILE_UPLOADED_SUCCESSFULLY.value,
-            "file_id": file_id,
+            "file_id": str(asset_record.id),
         }
     )
 
@@ -84,7 +94,9 @@ async def process_endpoint(
     chunk_overlap = process_request.chunk_overlap
     do_reset = process_request.do_reset
 
-    project_model = await ProjectModel.creat_instance(db_client=request.app.db_client)  # get db_client from app from /models/ProjectModel.py
+    project_model = await ProjectModel.creat_instance(
+        db_client=request.app.db_client
+    )  # get db_client from app from /models/ProjectModel.py
     project = await project_model.get_project_or_create_one(
         project_id=project_id
     )  # get or create project from /models/ProjectModel.py
